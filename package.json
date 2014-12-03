@@ -1,0 +1,28 @@
+{
+  "name": "url-assembler",
+  "version": "0.0.0",
+  "description": "Assemble urls from route-like templates (/path/:param)",
+  "main": "index.js",
+  "scripts": {
+    "test": "istanbul cover --print detail _mocha -- -R spec test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Floby/node-url-assembler.git"
+  },
+  "keywords": [
+    "url",
+    "template",
+    "assemble",
+    "assembler",
+    "route",
+    "routing",
+    "parameters"
+  ],
+  "author": "Florent Jaby <florent.jaby@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Floby/node-url-assembler/issues"
+  },
+  "homepage": "https://github.com/Floby/node-url-assembler"
+}
