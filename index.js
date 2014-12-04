@@ -30,14 +30,8 @@ m.toString = function toString () {
 };
 
 m.prefix = function prefix (prefix) {
-  var self = this;
-  var pathname = self.pathname
-  pathname = prefix + pathname;
-  pathname = url.parse(pathname);
-  ['pathname', 'protocol', 'hostname'].forEach(function (key) {
-    self[key] = pathname[key] || self[key];
-  });
-  return self;
+  this.pathname = prefix + this.pathname;
+  return this;
 };
 
 m.param = function param (key, value) {
