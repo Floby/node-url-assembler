@@ -39,6 +39,21 @@ UrlAssembler('http://my.domain.com:9000')
   .toString() // => "http://my.domain.9000/groups/admins/users/floby"
 ```
 
+You can also incrementally build your URL.
+
+```javascript
+UrlAssembler('https://api.site.com/')
+  .prefix('/v2')
+  .segment('/users/:user')
+  .segment('/projects/:project_id')
+  .segment('/summary')
+  .param({
+    user: 'floby',
+    project_id: 'node-url-assembler'
+  })
+  .toString() // => 'https://api.site.com/users/floby/projects/node-url-assembler/summary'
+```
+
 In addition, an instance of `UrlAssembler` is a valid object to pass
 to `url.format` or any function accepting this kind of object as
 parameter.
