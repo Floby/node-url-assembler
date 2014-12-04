@@ -13,5 +13,11 @@ describe('an instance', function () {
         expect(myUrl.toString()).to.equal('/hello');
       });
     })
+
+    describe('.prefix()', function () {
+      it('adds a prefix to the result of toString()', function () {
+        expect(myUrl.prefix('/coucou').toString()).to.equal('/coucou/hello');
+      });
+    })
   });
 });
