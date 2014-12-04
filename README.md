@@ -16,9 +16,8 @@ Usage
 -----
 
 ```javascript
-var UrlAssembler = require('url-assembler');
-var myUrl = UrlAssembler('/users/:user');
-myUrl
+UrlAssembler()
+  .template('/users/:user')
   .param('user', 8)
   .param('include', 'address')
   .query({
@@ -29,13 +28,10 @@ myUrl
 ```
 
 Since you more often than not need a hostname a protocol to go with this
-you can specify this as a `prefix`
 
 ```javascript
-var UrlAssembler = require('url-assembler');
-myUrl = UrlAssembler('/groups/:group/users/:user');
-myUrl
-  .prefix('http://my.domain.com:9000')
+UrlAssembler('http://my.domain.com:9000')
+  .template('/groups/:group/users/:user')
   .param({
     group: 'admin',
     user: 'floby'

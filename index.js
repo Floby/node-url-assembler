@@ -4,11 +4,12 @@ var qs = require('qs');
 
 module.exports = UrlAssembler;
 
-function UrlAssembler (template) {
-  if(!(this instanceof UrlAssembler)) return new UrlAssembler(template);
-  if(!template) throw new Error('template parameter is mandatory');
+function UrlAssembler (baseUrl) {
+  if(!(this instanceof UrlAssembler)) return new UrlAssembler(baseUrl);
 
-  extend(this, url.parse(template));
+  if(baseUrl) {
+    extend(this, url.parse(baseUrl));
+  }
 
   var query = {};
   this.query = function addQueryParam (key, value) {
@@ -16,17 +17,31 @@ function UrlAssembler (template) {
     this.search = qs.stringify(query);
     return this;
   }
+  this.port = function (newPort) {
+    this.host = this.hostname + ':' + newPort;
+    return this;
+  };
 }
 
 var m = UrlAssembler.prototype;
+
+m.template = function (fragment) {
+  this.pathname = fragment;
+};
 
 m.toString = function toString () {
   return url.format(this);
 };
 
 m.prefix = function prefix (prefix) {
-  this.pathname = prefix + this.pathname;
-  return this;
+  var self = this;
+  var pathname = self.pathname
+  pathname = prefix + pathname;
+  pathname = url.parse(pathname);
+  ['pathname', 'protocol', 'hostname'].forEach(function (key) {
+    self[key] = pathname[key] || self[key];
+  });
+  return self;
 };
 
 m.param = function param (key, value) {

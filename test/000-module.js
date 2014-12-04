@@ -13,13 +13,4 @@ describe('the module', function () {
     var myUrl = UrlAssembler('/hello');
     expect(myUrl).to.be.an.instanceof(UrlAssembler);
   });
-
-  describe('when called without parameters', function () {
-    var UrlAssembler = require('../');
-    it('throws', function () {
-      expect(function () {
-        UrlAssembler()
-      }).to.throw(/mandatory/)
-    })
-  })
 })

@@ -1,12 +1,15 @@
 var expect = require('chai').expect
 var UrlAssembler = require('../')
 
-describe('an instance', function () {
+describe('an instance with no baseUrl', function () {
   var myUrl;
+  beforeEach(function () {
+    myUrl = UrlAssembler();
+  });
 
   describe('given a template with no parameters', function () {
     beforeEach(function () {
-      myUrl = UrlAssembler('/hello');
+      myUrl.template('/hello');
     });
     describe('.toString()', function () {
       it('returns the template', function () {
