@@ -31,6 +31,7 @@
     "mocha": "^2.0.1"
   },
   "dependencies": {
+    "extend": "^2.0.0",
     "qs": "^2.3.3"
   }
 }
