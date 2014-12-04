@@ -25,12 +25,18 @@ describe('an instance', function () {
         expect(myUrl.param('a', 'bc').toString()).to.equal('/hello?a=bc');
       });
     });
+
+    describe('.query()', function () {
+      it('add the parameter as a query parameter', function () {
+        expect(myUrl.query('param', 12345).toString()).to.equal('/hello?param=12345');
+      })
+    })
   });
 
   describe('given a template with a simple parameter', function () {
     beforeEach(function () {
       myUrl = UrlAssembler('/path/:myparam');
-    })
+    });
     describe('.param()', function () {
       it('replaces the parameter in the template', function () {
         expect(myUrl.param('myparam', 'hello').toString()).to.equal('/path/hello');
