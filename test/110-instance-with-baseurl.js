@@ -23,4 +23,14 @@ describe('an instance with a baseUrl', function () {
     })
   });
 
+  describe('when the baseUrl stops at the port number', function () {
+    beforeEach(function () {
+      myUrl = UrlAssembler('http://domain.com:90');
+    })
+
+    it('does not double slash the result', function () {
+      expect(myUrl.segment('/hello').toString()).to.equal('http://domain.com:90/hello');
+    })
+  });
+
 });

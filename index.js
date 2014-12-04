@@ -11,6 +11,10 @@ function UrlAssembler (baseUrl) {
   if(baseUrl) {
     extend(this, url.parse(baseUrl));
     this._prefix = this.pathname;
+    if(this._prefix === '/') {
+      this._prefix = '';
+      this.pathname = '';
+    }
   }
 
   var query = {};
