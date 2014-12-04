@@ -17,10 +17,6 @@ function UrlAssembler (baseUrl) {
     this.search = qs.stringify(query);
     return this;
   }
-  this.port = function (newPort) {
-    this.host = this.hostname + ':' + newPort;
-    return this;
-  };
 }
 
 var m = UrlAssembler.prototype;
