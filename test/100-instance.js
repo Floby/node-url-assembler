@@ -56,4 +56,21 @@ describe('an instance with no baseUrl', function () {
       });
     });
   });
+
+  describe('given segments with multiple parameters', function () {
+    beforeEach(function () {
+      myUrl
+      .segment('/groups/:group')
+      .segment('/users/:user');
+    })
+    describe('.param({...})', function () {
+      it('replace the correct value for each parameter', function () {
+        var actual = myUrl.param({
+          group: 'A',
+          user: 9
+        }).toString();
+        expect(actual).to.equal('/groups/A/users/9');
+      });
+    })
+  });
 });

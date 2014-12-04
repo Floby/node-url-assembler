@@ -25,10 +25,12 @@ var m = UrlAssembler.prototype;
 
 m.template = function (fragment) {
   this.pathname = (this._prefix) + fragment;
+  return this;
 };
 
 m.segment = function (segment) {
-  this.pathname = this.pathname + segment;
+  this.pathname = (this.pathname || '') + segment;
+  return this;
 }
 
 m.toString = function toString () {
@@ -43,6 +45,14 @@ m.prefix = function prefix (prefix) {
 };
 
 m.param = function param (key, value) {
+  if(!value && typeof key === 'object') {
+    var hash = key;
+    for(key in hash) {
+      this.param(key, hash[key]);
+    }
+    return this;
+  }
+
   var previous = this.pathname;
   var symbol = ':' + key;
   this.pathname = this.pathname.replace(symbol, value);
