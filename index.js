@@ -11,12 +11,9 @@ function UrlAssembler (template) {
   extend(this, url.parse(template));
 
   var query = {};
-  this.search = null;
   this.query = function addQueryParam (key, value) {
     query[key] = value;
-    var search = qs.stringify(query);
-    if(search) search = '?' + search;
-    this.search = search;
+    this.search = qs.stringify(query);
     return this;
   }
 }
