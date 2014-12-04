@@ -7,8 +7,10 @@ module.exports = UrlAssembler;
 function UrlAssembler (baseUrl) {
   if(!(this instanceof UrlAssembler)) return new UrlAssembler(baseUrl);
 
+  this._prefix = '';
   if(baseUrl) {
     extend(this, url.parse(baseUrl));
+    this._prefix = this.pathname;
   }
 
   var query = {};
@@ -22,7 +24,7 @@ function UrlAssembler (baseUrl) {
 var m = UrlAssembler.prototype;
 
 m.template = function (fragment) {
-  this.pathname = fragment;
+  this.pathname = (this._prefix) + fragment;
 };
 
 m.toString = function toString () {
