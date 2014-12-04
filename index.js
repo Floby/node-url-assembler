@@ -32,7 +32,9 @@ m.toString = function toString () {
 };
 
 m.prefix = function prefix (prefix) {
-  this.pathname = prefix + this.pathname;
+  var pathToKeep = this.pathname.substr(this._prefix.length);
+  this._prefix = this._prefix + prefix;
+  this.pathname = this._prefix + pathToKeep;
   return this;
 };
 
