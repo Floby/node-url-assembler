@@ -33,6 +33,16 @@ describe('an instance with no baseUrl', function () {
       it('add the parameter as a query parameter', function () {
         expect(myUrl.query('param', 12345).toString()).to.equal('/hello?param=12345');
       })
+
+      describe('called with a hash map', function () {
+        it('adds each of it to the query string', function () {
+          myUrl.query({
+            'hello': 'goodbye',
+            'one': 1
+          })
+          expect(myUrl.toString()).to.equal('/hello?hello=goodbye&one=1');
+        })
+      })
     })
   });
 
