@@ -27,6 +27,10 @@ m.template = function (fragment) {
   this.pathname = (this._prefix) + fragment;
 };
 
+m.segment = function (segment) {
+  this.pathname = this.pathname + segment;
+}
+
 m.toString = function toString () {
   return url.format(this);
 };

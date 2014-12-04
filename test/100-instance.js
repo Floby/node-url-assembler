@@ -45,5 +45,15 @@ describe('an instance with no baseUrl', function () {
         expect(myUrl.param('myparam', 'hello').toString()).to.equal('/path/hello');
       })
     });
+
+    describe('.segment()', function () {
+      beforeEach(function () {
+        myUrl.param('myparam', 'hello');
+        myUrl.segment('/another/:parameter');
+      })
+      it('adds the given parametrized segment at the end of the path', function () {
+        expect(myUrl.param('parameter', 8000).toString()).to.equal('/path/hello/another/8000');
+      });
+    });
   });
 });
