@@ -16,7 +16,7 @@ function UrlAssembler (baseUrl) {
   var query = {};
   this.query = function addQueryParam (key, value) {
     if(!value && typeof key === 'object') {
-      query = key;
+      query = extend(query, key);
     }
     else {
       query[key] = value;

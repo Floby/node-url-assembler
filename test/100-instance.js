@@ -42,6 +42,19 @@ describe('an instance with no baseUrl', function () {
           })
           expect(myUrl.toString()).to.equal('/hello?hello=goodbye&one=1');
         })
+
+        describe('when some query param have already been set', function () {
+          beforeEach(function () {
+            myUrl.query('yes', 'no');
+          })
+          it('keeps the previously set query params', function () {
+            myUrl.query({
+              'hello': 'goodbye',
+              'one': 1
+            })
+            expect(myUrl.toString()).to.equal('/hello?yes=no&hello=goodbye&one=1')
+          });
+        })
       })
     })
   });
