@@ -33,4 +33,16 @@ describe('an instance with a baseUrl', function () {
     })
   });
 
+  describe('when passed to url.format', function () {
+    beforeEach(function () {
+      myUrl.prefix('/v4').segment('/users/:user').segment('/rights');
+    });
+    it('should give the same output as toString()', function () {
+      var url = require('url');
+      myUrl.param('user', 'floby');
+      var expected = myUrl.toString();
+      expect(url.format(myUrl)).to.equal(expected);
+    });
+  })
+
 });
