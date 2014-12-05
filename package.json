@@ -4,7 +4,8 @@
   "description": "Assemble urls from route-like templates (/path/:param)",
   "main": "index.js",
   "scripts": {
-    "test": "istanbul cover --print detail _mocha -- -R spec test"
+    "test": "istanbul cover --print detail _mocha -- -R spec test",
+    "coveralls": "cat coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
   "homepage": "https://github.com/Floby/node-url-assembler",
   "devDependencies": {
     "chai": "^1.10.0",
+    "coveralls": "^2.11.2",
     "istanbul": "^0.3.3",
     "mocha": "^2.0.1"
   },
