@@ -21,12 +21,12 @@ function UrlAssembler (baseUrl) {
   this.query = function addQueryParam (key, value) {
     if(!value && typeof key === 'object') {
       for (var i in key) {
-        if (!key[i])
+        if (nullOrUndef(key[i]))
           delete key[i];
       }
       query = extend(query, key);
     }
-    else if (value) {
+    else if (!nullOrUndef(value)) {
       query[key] = value;
     }
     this.search = qs.stringify(query);
@@ -74,3 +74,7 @@ m.param = function param (key, value) {
   }
   return this;
 };
+
+function nullOrUndef (value) {
+  return value === null || typeof value === 'undefined';
+}

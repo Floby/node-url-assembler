@@ -38,6 +38,10 @@ describe('an instance with no baseUrl', function () {
         expect(myUrl.query('param', null).toString()).to.equal('/hello');
       })
 
+      it('keeps the query parameter if it has a falsy yet correct value', function () {
+        expect(myUrl.query('param', 0).toString()).to.equal('/hello?param=0');
+      });
+
       describe('called with a hash map', function () {
         it('adds each of it to the query string', function () {
           myUrl.query({
@@ -54,7 +58,17 @@ describe('an instance with no baseUrl', function () {
             'goodbye': 'hello'
           })
           expect(myUrl.toString()).to.equal('/hello?hello=goodbye&goodbye=hello');
-        })
+        });
+
+        it('keeps falsy values if they are correct', function () {
+          myUrl.query({
+            'hello': 'goodbye',
+            'two': '',
+            'three': 0,
+            'goodbye': 'hello'
+          })
+          expect(myUrl.toString()).to.equal('/hello?hello=goodbye&two=&three=0&goodbye=hello');
+        });
 
         describe('when some query param have already been set', function () {
           beforeEach(function () {
