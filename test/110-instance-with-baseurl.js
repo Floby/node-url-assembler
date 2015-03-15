@@ -9,7 +9,7 @@ describe('an instance with a baseUrl', function () {
 
   describe('given a template with no parameters', function () {
     beforeEach(function () {
-      myUrl.template('/hello/world');
+      myUrl = myUrl.template('/hello/world');
     });
 
     it('adds it to the pathname of the url', function () {
@@ -35,7 +35,7 @@ describe('an instance with a baseUrl', function () {
 
   describe('when passed to url.format', function () {
     beforeEach(function () {
-      myUrl.prefix('/v4').segment('/users/:user').segment('/rights');
+      myUrl = myUrl.prefix('/v4').segment('/users/:user').segment('/rights');
     });
     it('should give the same output as toString()', function () {
       var url = require('url');

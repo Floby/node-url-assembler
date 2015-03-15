@@ -9,7 +9,7 @@ describe('an instance with no baseUrl', function () {
 
   describe('given a template with no parameters', function () {
     beforeEach(function () {
-      myUrl.template('/hello');
+      myUrl = myUrl.template('/hello');
     });
     describe('.toString()', function () {
       it('returns the template', function () {
@@ -44,7 +44,7 @@ describe('an instance with no baseUrl', function () {
 
       describe('called with a hash map', function () {
         it('adds each of it to the query string', function () {
-          myUrl.query({
+          myUrl = myUrl.query({
             'hello': 'goodbye',
             'one': 1
           })
@@ -52,7 +52,7 @@ describe('an instance with no baseUrl', function () {
         })
 
         it('does not add the query parameters which are null', function () {
-          myUrl.query({
+          myUrl = myUrl.query({
             'hello': 'goodbye',
             'one': null,
             'goodbye': 'hello'
@@ -61,7 +61,7 @@ describe('an instance with no baseUrl', function () {
         });
 
         it('keeps falsy values if they are correct', function () {
-          myUrl.query({
+          myUrl = myUrl.query({
             'hello': 'goodbye',
             'two': '',
             'three': 0,
@@ -72,10 +72,10 @@ describe('an instance with no baseUrl', function () {
 
         describe('when some query param have already been set', function () {
           beforeEach(function () {
-            myUrl.query('yes', 'no');
+            myUrl = myUrl.query('yes', 'no');
           })
           it('keeps the previously set query params', function () {
-            myUrl.query({
+            myUrl = myUrl.query({
               'hello': 'goodbye',
               'one': 1
             })
@@ -98,8 +98,9 @@ describe('an instance with no baseUrl', function () {
 
     describe('.segment()', function () {
       beforeEach(function () {
-        myUrl.param('myparam', 'hello');
-        myUrl.segment('/another/:parameter');
+        myUrl = myUrl
+          .param('myparam', 'hello')
+          .segment('/another/:parameter');
       })
       it('adds the given parametrized segment at the end of the path', function () {
         expect(myUrl.param('parameter', 8000).toString()).to.equal('/path/hello/another/8000');
@@ -109,7 +110,7 @@ describe('an instance with no baseUrl', function () {
 
   describe('given segments with multiple parameters', function () {
     beforeEach(function () {
-      myUrl
+      myUrl = myUrl
       .segment('/groups/:group')
       .segment('/users/:user');
     })
