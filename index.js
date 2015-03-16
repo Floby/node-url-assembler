@@ -35,7 +35,7 @@ function UrlAssembler (baseUrlOrParams) {
     });
   };
 
-  if(baseUrl) {
+  if (baseUrl) {
     extend(this, url.parse(baseUrl));
     this._prefix = this.pathname;
     if(this._prefix === '/') {
@@ -43,12 +43,13 @@ function UrlAssembler (baseUrlOrParams) {
       this.pathname = '';
     }
   }
-  if(params) {
+  if (params) {
     extend(this, params.value);
     this._prefix = params.prefix;
     this._query(params.query);
   }
 
+  this.href = this.toString();
 }
 
 var methods = UrlAssembler.prototype;
@@ -89,9 +90,9 @@ methods.prefix = function prefix (prefix) {
 
 methods.param = function param (key, value) {
   var chainable = this._chain();
-  if(!value && typeof key === 'object') {
+  if (!value && typeof key === 'object') {
     var hash = key;
-    for(key in hash) {
+    for (key in hash) {
       chainable = chainable.param(key, hash[key]);
     }
     return chainable;
@@ -100,7 +101,7 @@ methods.param = function param (key, value) {
   var previous = this.pathname;
   var symbol = ':' + key;
   chainable.pathname = this.pathname.replace(symbol, value);
-  if(chainable.pathname === previous) {
+  if (chainable.pathname === previous) {
     return chainable.query(key, value);
   }
   return chainable;
