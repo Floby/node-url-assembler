@@ -67,6 +67,10 @@ methods.toString = function toString () {
   return url.format(this);
 };
 
+methods.valueOf = function () {
+  return this.toString();
+}
+
 methods.query = function (param, value) {
   this._query(param, value);
   return this._chain();

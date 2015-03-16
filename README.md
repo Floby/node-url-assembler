@@ -45,22 +45,21 @@ You can also incrementally build your URL.
 UrlAssembler('https://api.site.com/')
   .prefix('/v2')
   .segment('/users/:user')
-  .segment('/projects/:project_id')
+  .segment('/projects/:project')
   .segment('/summary')
   .param({
     user: 'floby',
-    project_id: 'node-url-assembler'
+    project: 'node-url-assembler'
   })
-  .toString() // => 'https://api.site.com/users/floby/projects/node-url-assembler/summary'
+  .toString() // => 'https://api.site.com/v2/users/floby/projects/node-url-assembler/summary'
 ```
 
 Every method (except `toString()`) returns a new instance of `UrlAssembler`. You can
-consider `UrlAssembler` instances as immutable.
+consider that `UrlAssembler` instances are immutable.
 
 In addition, an instance of `UrlAssembler` is a valid object to pass
 to `url.format` or any function accepting this kind of object as
 parameter.
-
 
 Test
 ----

@@ -17,6 +17,12 @@ describe('an instance with no baseUrl', function () {
       });
     })
 
+    describe('.valueOf()', function () {
+      it('returns the template', function () {
+        expect(myUrl.valueOf()).to.equal('/hello');
+      })
+    })
+
     describe('.prefix()', function () {
       it('adds a prefix to the result of toString()', function () {
         expect(myUrl.prefix('/coucou').toString()).to.equal('/coucou/hello');
