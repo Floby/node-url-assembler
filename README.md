@@ -54,12 +54,13 @@ UrlAssembler('https://api.site.com/')
   .toString() // => 'https://api.site.com/users/floby/projects/node-url-assembler/summary'
 ```
 
+Every method (except `toString()`) returns a new instance of `UrlAssembler`. You can
+consider `UrlAssembler` instances as immutable.
+
 In addition, an instance of `UrlAssembler` is a valid object to pass
 to `url.format` or any function accepting this kind of object as
 parameter.
 
-Comprehensive Documentation
----------------------------
 
 Test
 ----
