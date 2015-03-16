@@ -13,12 +13,17 @@
   },
   "keywords": [
     "url",
+    "builder",
+    "urlBuilder",
+    "url-builder",
     "template",
     "assemble",
     "assembler",
     "route",
     "routing",
-    "parameters"
+    "parameters",
+    "query-builder",
+    "query"
   ],
   "author": "Florent Jaby <florent.jaby@gmail.com>",
   "license": "MIT",
