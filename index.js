@@ -54,13 +54,15 @@ function UrlAssembler (baseUrlOrParams) {
 var methods = UrlAssembler.prototype;
 
 methods.template = function (fragment) {
-  this.pathname = (this._prefix) + fragment;
-  return this._chain();
+  var chainable = this._chain();
+  chainable.pathname = (this._prefix) + fragment;
+  return chainable;
 };
 
 methods.segment = function (segment) {
-  this.pathname = (this.pathname || '') + segment;
-  return this._chain();
+  var chainable = this._chain();
+  chainable.pathname = (this.pathname || '') + segment;
+  return chainable;
 }
 
 methods.toString = function toString () {
@@ -72,33 +74,36 @@ methods.valueOf = function () {
 }
 
 methods.query = function (param, value) {
-  this._query(param, value);
-  return this._chain();
+  var chainable = this._chain();
+  chainable._query(param, value);
+  return chainable;
 };
 
 methods.prefix = function prefix (prefix) {
+  var chainable = this._chain();
   var pathToKeep = this.pathname.substr(this._prefix.length);
-  this._prefix = this._prefix + prefix;
-  this.pathname = this._prefix + pathToKeep;
-  return this._chain();
+  chainable._prefix = this._prefix + prefix;
+  chainable.pathname = chainable._prefix + pathToKeep;
+  return chainable;
 };
 
 methods.param = function param (key, value) {
+  var chainable = this._chain();
   if(!value && typeof key === 'object') {
     var hash = key;
     for(key in hash) {
-      this.param(key, hash[key]);
+      chainable = chainable.param(key, hash[key]);
     }
-    return this._chain();
+    return chainable;
   }
 
   var previous = this.pathname;
   var symbol = ':' + key;
-  this.pathname = this.pathname.replace(symbol, value);
-  if(this.pathname === previous) {
-    this.query(key, value);
+  chainable.pathname = this.pathname.replace(symbol, value);
+  if(chainable.pathname === previous) {
+    return chainable.query(key, value);
   }
-  return this._chain();
+  return chainable;
 };
 
 function nullOrUndef (value) {
