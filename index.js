@@ -4,21 +4,16 @@ var qs = require('qs');
 
 module.exports = UrlAssembler;
 
-function UrlAssembler (baseUrl) {
-  if(!(this instanceof UrlAssembler)) return new UrlAssembler(baseUrl);
+function UrlAssembler (baseUrlOrParams) {
+  if(!(this instanceof UrlAssembler)) return new UrlAssembler(baseUrlOrParams);
 
-  this._prefix = '';
-  if(baseUrl) {
-    extend(this, url.parse(baseUrl));
-    this._prefix = this.pathname;
-    if(this._prefix === '/') {
-      this._prefix = '';
-      this.pathname = '';
-    }
-  }
+  var baseUrl = typeof baseUrlOrParams === 'string' ? baseUrlOrParams : null;
+  var params = typeof baseUrlOrParams === 'object' ? baseUrlOrParams : null;
 
   var query = {};
-  this.query = function addQueryParam (key, value) {
+  this._prefix = '';
+
+  this._query = function addQueryParam (key, value) {
     if(!value && typeof key === 'object') {
       for (var i in key) {
         if (nullOrUndef(key[i]))
@@ -30,40 +25,67 @@ function UrlAssembler (baseUrl) {
       query[key] = value;
     }
     this.search = qs.stringify(query);
-    return this;
   }
+
+  this._chain = function () {
+    return new UrlAssembler({
+      value: selectUrlFields(this),
+      prefix: this._prefix,
+      query: query
+    });
+  };
+
+  if(baseUrl) {
+    extend(this, url.parse(baseUrl));
+    this._prefix = this.pathname;
+    if(this._prefix === '/') {
+      this._prefix = '';
+      this.pathname = '';
+    }
+  }
+  if(params) {
+    extend(this, params.value);
+    this._prefix = params.prefix;
+    this._query(params.query);
+  }
+
 }
 
-var m = UrlAssembler.prototype;
+var methods = UrlAssembler.prototype;
 
-m.template = function (fragment) {
+methods.template = function (fragment) {
   this.pathname = (this._prefix) + fragment;
-  return this;
+  return this._chain();
 };
 
-m.segment = function (segment) {
+methods.segment = function (segment) {
   this.pathname = (this.pathname || '') + segment;
-  return this;
+  return this._chain();
 }
 
-m.toString = function toString () {
+methods.toString = function toString () {
   return url.format(this);
 };
 
-m.prefix = function prefix (prefix) {
+methods.query = function (param, value) {
+  this._query(param, value);
+  return this._chain();
+};
+
+methods.prefix = function prefix (prefix) {
   var pathToKeep = this.pathname.substr(this._prefix.length);
   this._prefix = this._prefix + prefix;
   this.pathname = this._prefix + pathToKeep;
-  return this;
+  return this._chain();
 };
 
-m.param = function param (key, value) {
+methods.param = function param (key, value) {
   if(!value && typeof key === 'object') {
     var hash = key;
     for(key in hash) {
       this.param(key, hash[key]);
     }
-    return this;
+    return this._chain();
   }
 
   var previous = this.pathname;
@@ -72,9 +94,27 @@ m.param = function param (key, value) {
   if(this.pathname === previous) {
     this.query(key, value);
   }
-  return this;
+  return this._chain();
 };
 
 function nullOrUndef (value) {
   return value === null || typeof value === 'undefined';
+}
+
+function selectUrlFields (assembler) {
+  return ['protocol',
+          'slashes',
+          'auth',
+          'host',
+          'port',
+          'hostname',
+          'hash',
+          'search',
+          //'query',
+          'pathname',
+          'path',
+          'href'].reduce(function(value, field) {
+    value[field] = assembler[field]
+    return value;
+  }, {})
 }
