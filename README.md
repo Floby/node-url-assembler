@@ -27,7 +27,7 @@ UrlAssembler()
   .toString() // => "/users/8?include=address&some=thing&other=1234
 ```
 
-Since you more often than not need a hostname a protocol to go with this
+Since you more often than not need a hostname and a protocol to go with this
 
 ```javascript
 UrlAssembler('http://my.domain.com:9000')
