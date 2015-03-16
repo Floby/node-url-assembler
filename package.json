@@ -1,6 +1,6 @@
 {
   "name": "url-assembler",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Assemble urls from route-like templates (/path/:param)",
   "main": "index.js",
   "scripts": {
