@@ -71,6 +71,34 @@ to `url.format()` or any function accepting this kind of object as
 parameter.
 
 
+API Reference
+-------------
+
+###### `new UrlAssembler([baseUrl])`
+- `baseUrl`: will be used for protocol, hostname, port and other base url kind of stuff.
+- **returns** an instance of a URL assembler.
+
+###### `.template(template)`
+- `template` a *string* with dynamic part noted as `:myparam` . For example `'/hello/:param/world'`
+- **returns** a new instance of `UrlAssembler` with this template configured
+
+###### `.param(key, value[, strict])`
+- `key`: a *string* of the dynamic part to replace
+- `value`: a *string* to replace the dynamic part with
+- **returns** a new instance of `UrlAssembler` with the parameter `key` replaced with `value`. If strict is falsy, the key will be added as query parameter.
+
+###### `.param(params[, strict])`
+- `params`: a *hash* of key/value to give to the method above
+- `strict` a flag passed to the method above
+- **returns** a new instance of `UrlAssembler` with all the parameters replaced
+
+###### `.query(key, value)`
+- `key`: the name of the parameter to configure
+- `value`: the value of the parameter to configure
+- **returns** a new instance of `UrlAssembler` with the key=value pair added as query parameter with the `qs` module.
+
+###### `.query(params)`
+shortcut for the previous method with a hash of key/value.
 
 
 Test
