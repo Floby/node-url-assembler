@@ -15,6 +15,8 @@ Installation
 Usage
 -----
 
+#### Basic
+
 ```javascript
 UrlAssembler()
   .template('/users/:user')
@@ -27,6 +29,8 @@ UrlAssembler()
   .toString() // => "/users/8?include=address&some=thing&other=1234
 ```
 
+#### With base URL
+
 Since you more often than not need a hostname and a protocol to go with this
 
 ```javascript
@@ -38,6 +42,8 @@ UrlAssembler('http://my.domain.com:9000')
   })
   .toString() // => "http://my.domain.9000/groups/admins/users/floby"
 ```
+
+#### Incremental assembling
 
 You can also incrementally build your URL.
 
@@ -54,12 +60,18 @@ UrlAssembler('https://api.site.com/')
   .toString() // => 'https://api.site.com/v2/users/floby/projects/node-url-assembler/summary'
 ```
 
+Design
+------
+
 Every method (except `toString()`) returns a new instance of `UrlAssembler`. You can
 consider that `UrlAssembler` instances are immutable.
 
 In addition, an instance of `UrlAssembler` is a valid object to pass
-to `url.format` or any function accepting this kind of object as
+to `url.format()` or any function accepting this kind of object as
 parameter.
+
+
+
 
 Test
 ----
