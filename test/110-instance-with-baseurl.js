@@ -16,7 +16,7 @@ describe('an instance with a baseUrl', function () {
       expect(myUrl.toString()).to.equal('http://hello.com:8989/api/hello/world')
     });
 
-    describe('.prefix()', function () {
+    describe('.prefix(prefix)', function () {
       it('adds a prefix in addition to the exsting one', function () {
         expect(myUrl.prefix('/v2').toString()).to.equal('http://hello.com:8989/api/v2/hello/world');
       })

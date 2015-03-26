@@ -23,19 +23,19 @@ describe('an instance with no baseUrl', function () {
       })
     })
 
-    describe('.prefix()', function () {
+    describe('.prefix(prefix)', function () {
       it('adds a prefix to the result of toString()', function () {
         expect(myUrl.prefix('/coucou').toString()).to.equal('/coucou/hello');
       });
     });
 
-    describe('.param()', function () {
+    describe('.param(key, value)', function () {
       it('adds the parameter as a query parameter', function () {
         expect(myUrl.param('a', 'bc').toString()).to.equal('/hello?a=bc');
       });
     });
 
-    describe('.query()', function () {
+    describe('.query(key, value)', function () {
       it('add the parameter as a query parameter', function () {
         expect(myUrl.query('param', 12345).toString()).to.equal('/hello?param=12345');
       })
@@ -47,47 +47,47 @@ describe('an instance with no baseUrl', function () {
       it('keeps the query parameter if it has a falsy yet correct value', function () {
         expect(myUrl.query('param', 0).toString()).to.equal('/hello?param=0');
       });
+    })
 
-      describe('called with a hash map', function () {
-        it('adds each of it to the query string', function () {
+    describe('.query({key: value})', function () {
+      it('adds each of it to the query string', function () {
+        myUrl = myUrl.query({
+          'hello': 'goodbye',
+          'one': 1
+        })
+        expect(myUrl.toString()).to.equal('/hello?hello=goodbye&one=1');
+      })
+
+      it('does not add the query parameters which are null', function () {
+        myUrl = myUrl.query({
+          'hello': 'goodbye',
+          'one': null,
+          'goodbye': 'hello'
+        })
+        expect(myUrl.toString()).to.equal('/hello?hello=goodbye&goodbye=hello');
+      });
+
+      it('keeps falsy values if they are correct', function () {
+        myUrl = myUrl.query({
+          'hello': 'goodbye',
+          'two': '',
+          'three': 0,
+          'goodbye': 'hello'
+        })
+        expect(myUrl.toString()).to.equal('/hello?hello=goodbye&two=&three=0&goodbye=hello');
+      });
+
+      describe('when some query param have already been set', function () {
+        beforeEach(function () {
+          myUrl = myUrl.query('yes', 'no');
+        })
+        it('keeps the previously set query params', function () {
           myUrl = myUrl.query({
             'hello': 'goodbye',
             'one': 1
           })
-          expect(myUrl.toString()).to.equal('/hello?hello=goodbye&one=1');
-        })
-
-        it('does not add the query parameters which are null', function () {
-          myUrl = myUrl.query({
-            'hello': 'goodbye',
-            'one': null,
-            'goodbye': 'hello'
-          })
-          expect(myUrl.toString()).to.equal('/hello?hello=goodbye&goodbye=hello');
+          expect(myUrl.toString()).to.equal('/hello?yes=no&hello=goodbye&one=1')
         });
-
-        it('keeps falsy values if they are correct', function () {
-          myUrl = myUrl.query({
-            'hello': 'goodbye',
-            'two': '',
-            'three': 0,
-            'goodbye': 'hello'
-          })
-          expect(myUrl.toString()).to.equal('/hello?hello=goodbye&two=&three=0&goodbye=hello');
-        });
-
-        describe('when some query param have already been set', function () {
-          beforeEach(function () {
-            myUrl = myUrl.query('yes', 'no');
-          })
-          it('keeps the previously set query params', function () {
-            myUrl = myUrl.query({
-              'hello': 'goodbye',
-              'one': 1
-            })
-            expect(myUrl.toString()).to.equal('/hello?yes=no&hello=goodbye&one=1')
-          });
-        })
       })
     })
   });
@@ -96,13 +96,13 @@ describe('an instance with no baseUrl', function () {
     beforeEach(function () {
       myUrl = UrlAssembler('/path/:myparam');
     });
-    describe('.param()', function () {
+    describe('.param(key, value)', function () {
       it('replaces the parameter in the template', function () {
         expect(myUrl.param('myparam', 'hello').toString()).to.equal('/path/hello');
       })
     });
 
-    describe('.segment()', function () {
+    describe('.segment(key, value)', function () {
       beforeEach(function () {
         myUrl = myUrl
           .param('myparam', 'hello')
