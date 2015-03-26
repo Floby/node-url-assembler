@@ -88,7 +88,7 @@ methods.prefix = function prefix (prefix) {
   return chainable;
 };
 
-methods.param = function param (key, value) {
+methods.param = function param (key, value, strict) {
   var chainable = this._chain();
   if (!value && typeof key === 'object') {
     var hash = key;
@@ -101,7 +101,7 @@ methods.param = function param (key, value) {
   var previous = this.pathname;
   var symbol = ':' + key;
   chainable.pathname = this.pathname.replace(symbol, value);
-  if (chainable.pathname === previous) {
+  if (!strict && chainable.pathname === previous) {
     return chainable.query(key, value);
   }
   return chainable;

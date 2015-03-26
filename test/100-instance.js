@@ -35,6 +35,12 @@ describe('an instance with no baseUrl', function () {
       });
     });
 
+    describe('.param(key, value, true)', function () {
+      it('does not add the parameter as query parameter', function () {
+        expect(myUrl.param('a', 'bc', true).toString()).to.equal('/hello');
+      });
+    });
+
     describe('.query(key, value)', function () {
       it('add the parameter as a query parameter', function () {
         expect(myUrl.query('param', 12345).toString()).to.equal('/hello?param=12345');
@@ -47,7 +53,7 @@ describe('an instance with no baseUrl', function () {
       it('keeps the query parameter if it has a falsy yet correct value', function () {
         expect(myUrl.query('param', 0).toString()).to.equal('/hello?param=0');
       });
-    })
+    });
 
     describe('.query({key: value})', function () {
       it('adds each of it to the query string', function () {
