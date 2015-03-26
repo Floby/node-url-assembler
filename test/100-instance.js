@@ -108,7 +108,7 @@ describe('an instance with no baseUrl', function () {
       })
     });
 
-    describe('.segment(key, value)', function () {
+    describe('.segment(subpath)', function () {
       beforeEach(function () {
         myUrl = myUrl
           .param('myparam', 'hello')
@@ -134,6 +134,26 @@ describe('an instance with no baseUrl', function () {
         }).toString();
         expect(actual).to.equal('/groups/A/users/9');
       });
+
+      it('puts parameters which are not substituted in the path to query params', function () {
+        var actual = myUrl.param({
+          group: 'A',
+          user: 9,
+          something: 'else'
+        }).toString();
+        expect(actual).to.equal('/groups/A/users/9?something=else');
+      });
     })
+
+    describe('.param({...}, true)', function () {
+      it('does not put unused parameters in query params', function () {
+        var actual = myUrl.param({
+          group: 'A',
+          user: 9,
+          something: 'else'
+        }, true).toString();
+        expect(actual).to.equal('/groups/A/users/9');
+      });
+    });
   });
 });

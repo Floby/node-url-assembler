@@ -90,10 +90,12 @@ methods.prefix = function prefix (prefix) {
 
 methods.param = function param (key, value, strict) {
   var chainable = this._chain();
-  if (!value && typeof key === 'object') {
+
+  if (typeof key === 'object') {
     var hash = key;
+    strict = (value === true);
     for (key in hash) {
-      chainable = chainable.param(key, hash[key]);
+      chainable = chainable.param(key, hash[key], strict);
     }
     return chainable;
   }
