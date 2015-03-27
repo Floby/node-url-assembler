@@ -4,11 +4,14 @@ var qs = require('qs');
 
 module.exports = UrlAssembler;
 
-function UrlAssembler (baseUrlOrParams) {
-  if(!(this instanceof UrlAssembler)) return new UrlAssembler(baseUrlOrParams);
+function UrlAssembler (baseUrlOrUrlAssembler) {
+  if(!(this instanceof UrlAssembler)) return new UrlAssembler(baseUrlOrUrlAssembler);
 
-  var baseUrl = typeof baseUrlOrParams === 'string' ? baseUrlOrParams : null;
-  var params = typeof baseUrlOrParams === 'object' ? baseUrlOrParams : null;
+  var instance = null;
+  if (baseUrlOrUrlAssembler instanceof UrlAssembler) {
+    instance = baseUrlOrUrlAssembler;
+  }
+  var baseUrl = instance ? null : baseUrlOrUrlAssembler;
 
   var query = {};
   this._prefix = '';
@@ -27,12 +30,8 @@ function UrlAssembler (baseUrlOrParams) {
     this.search = qs.stringify(query);
   }
 
-  this._chain = function () {
-    return new this.constructor({
-      value: selectUrlFields(this),
-      prefix: this._prefix,
-      query: query
-    });
+  this.getParsedQuery = function () {
+    return extend(true, {}, query);
   };
 
   if (baseUrl) {
@@ -42,17 +41,20 @@ function UrlAssembler (baseUrlOrParams) {
       this._prefix = '';
       this.pathname = '';
     }
-  }
-  if (params) {
-    extend(this, params.value);
-    this._prefix = params.prefix;
-    this._query(params.query);
+  } else if (instance) {
+    extend(this, selectUrlFields(instance));
+    this._prefix = instance._prefix;
+    this._query(instance.getParsedQuery());
   }
 
   this.href = this.toString();
 }
 
 var methods = UrlAssembler.prototype;
+
+methods._chain = function () {
+  return new this.constructor(this);
+};
 
 methods.template = function (fragment) {
   var chainable = this._chain();
