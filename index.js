@@ -28,7 +28,7 @@ function UrlAssembler (baseUrlOrParams) {
   }
 
   this._chain = function () {
-    return new UrlAssembler({
+    return new this.constructor({
       value: selectUrlFields(this),
       prefix: this._prefix,
       query: query
