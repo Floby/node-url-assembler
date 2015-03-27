@@ -82,6 +82,16 @@ API Reference
 - `template` a *string* with dynamic part noted as `:myparam` . For example `'/hello/:param/world'`
 - **returns** a new instance of `UrlAssembler` with this template configured
 
+###### `.prefix(subPath)`
+- `subPath` : this *string* will be added at the beginning of the path part of the URL
+- if called several times, the subPath will be added after the previous prefix but before the rest of the path
+- **returns** a new instance of `UrlAssembler`
+
+###### `.segment(subPathTemplate)`
+- `subPathTemplate` is a *string* of a segment to add to the path of the URL. It can have a templatized parameter eg. `'/user/:user'`
+- if called several times, the segment will be added at the end of the URL.
+- **returns** a new instance of `UrlAssembler`
+
 ###### `.param(key, value[, strict])`
 - `key`: a *string* of the dynamic part to replace
 - `value`: a *string* to replace the dynamic part with
@@ -99,6 +109,9 @@ API Reference
 
 ###### `.query(params)`
 shortcut for the previous method with a hash of key/value.
+
+###### `.toString()`
+- **returns** a *string* of the current state of the `UrlAssembler` instance. Path parameters not yet replaced will appear as `:param_name`.
 
 
 Test
