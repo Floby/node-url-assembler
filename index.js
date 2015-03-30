@@ -15,8 +15,7 @@ function UrlAssembler (baseUrlOrUrlAssembler) {
   this._query = function addQueryParam (key, value) {
     if(!value && typeof key === 'object') {
       for (var i in key) {
-        if (nullOrUndef(key[i]))
-          delete key[i];
+        if (nullOrUndef(key[i])) delete key[i];
       }
       query = extend(query, key);
     }
