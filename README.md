@@ -117,7 +117,7 @@ query parameter with the [`qs`](https://www.npmjs.com/package/qs) module.
 ###### `.query(params)`
 - shortcut for the previous method with a hash of key/value.
 
-###### `.toString()`, `.valueOf()`
+###### `.toString()`, `.valueOf()`, `toJSON()`
 - **returns** a *string* of the current state of the `UrlAssembler` instance. Path parameters not yet replaced will appear as `:param_name`.
 
 Test
