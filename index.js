@@ -7,15 +7,10 @@ module.exports = UrlAssembler;
 function UrlAssembler (baseUrlOrUrlAssembler) {
   if(!(this instanceof UrlAssembler)) return new UrlAssembler(baseUrlOrUrlAssembler);
 
-  var instance = null;
-  if (baseUrlOrUrlAssembler instanceof UrlAssembler) {
-    instance = baseUrlOrUrlAssembler;
-  }
-  var baseUrl = instance ? null : baseUrlOrUrlAssembler;
-
-  var query = {};
   this._prefix = '';
   this.pathname = '';
+  var query = {};
+  this.getParsedQuery = clone.bind(null, query);
 
   this._query = function addQueryParam (key, value) {
     if(!value && typeof key === 'object') {
@@ -31,24 +26,27 @@ function UrlAssembler (baseUrlOrUrlAssembler) {
     this.search = qs.stringify(query);
   }
 
-  this.getParsedQuery = function () {
-    return clone(query);
-  };
-
-  if (baseUrl) {
-    extend(this, url.parse(baseUrl));
-    this._prefix = this.pathname;
-    if(this._prefix === '/') {
-      this._prefix = '';
-      this.pathname = '';
-    }
-  } else if (instance) {
-    extend(this, selectUrlFields(instance));
-    this._prefix = instance._prefix;
-    this._query(instance.getParsedQuery());
+  if (baseUrlOrUrlAssembler instanceof UrlAssembler) {
+    initWithInstance(this, baseUrlOrUrlAssembler);
+  } else if (baseUrlOrUrlAssembler) {
+    initWithBaseUrl(this, baseUrlOrUrlAssembler);
   }
 
   this.href = this.toString();
+}
+
+function initWithBaseUrl (self, baseUrl) {
+  extend(self, url.parse(baseUrl));
+  self._prefix = self.pathname;
+  if(self._prefix === '/') {
+    self._prefix = '';
+    self.pathname = '';
+  }
+}
+function initWithInstance (self, instance) {
+  extend(self, selectUrlFields(instance));
+  self._prefix = instance._prefix;
+  self._query(instance.getParsedQuery());
 }
 
 var methods = UrlAssembler.prototype;
