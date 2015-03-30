@@ -34,6 +34,7 @@ function UrlAssembler (baseUrlOrUrlAssembler) {
     return extend(true, {}, query);
   };
 
+  this.pathname = '';
   if (baseUrl) {
     extend(this, url.parse(baseUrl));
     this._prefix = this.pathname;

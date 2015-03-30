@@ -7,6 +7,14 @@ describe('an instance with no baseUrl', function () {
     myUrl = UrlAssembler();
   });
 
+  describe('given no template', function () {
+    describe('.prefix(prefix)', function () {
+      it('should add the given prefix at the beginning of the URL', function () {
+        expect(myUrl.prefix('/hello').toString()).to.equal('/hello');
+      });
+    });
+  });
+
   describe('given a template with no parameters', function () {
     beforeEach(function () {
       myUrl = myUrl.template('/hello');
