@@ -65,7 +65,7 @@ methods.template = function (fragment) {
 
 methods.segment = function (segment) {
   var chainable = this._chain();
-  chainable.pathname = (this.pathname || '') + segment;
+  chainable.pathname = (this.pathname) + segment;
   return chainable;
 }
 
