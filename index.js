@@ -59,13 +59,13 @@ methods._chain = function () {
 
 methods.template = function (fragment) {
   var chainable = this._chain();
-  chainable.pathname = (this._prefix) + fragment;
+  chainable.pathname = this._prefix + fragment;
   return chainable;
 };
 
 methods.segment = function (segment) {
   var chainable = this._chain();
-  chainable.pathname = (this.pathname) + segment;
+  chainable.pathname = this.pathname + segment;
   return chainable;
 }
 
