@@ -43,6 +43,7 @@ function initWithBaseUrl (self, baseUrl) {
     self.pathname = '';
   }
 }
+
 function initWithInstance (self, instance) {
   extend(self, selectUrlFields(instance));
   self._prefix = instance._prefix;
