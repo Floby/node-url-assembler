@@ -89,7 +89,7 @@ API Reference
 
 ###### `.prefix(subPath)`
 - `subPath` : this *string* will be added at the beginning of the path part of the URL
-- if called several times, the subPath will be added after the previous prefix but before the rest of the path
+- if called several times, the `subPath` will be added after the previous prefix but before the rest of the path
 - **returns** a new instance of `UrlAssembler`
 
 ###### `.segment(subPathTemplate)`
@@ -100,24 +100,25 @@ API Reference
 ###### `.param(key, value[, strict])`
 - `key`: a *string* of the dynamic part to replace
 - `value`: a *string* to replace the dynamic part with
-- **returns** a new instance of `UrlAssembler` with the parameter `key` replaced with `value`. If strict is falsy, the key will be added as query parameter.
+- **returns** a new instance of `UrlAssembler` with the parameter `key` replaced with `value`.
+If `strict` is falsy, the key will be added as query parameter.
 
 ###### `.param(params[, strict])`
 - `params`: a *hash* of key/value to give to the method above
 - `strict` a flag passed to the method above
-- **returns** a new instance of `UrlAssembler` with all the parameters replaced
+- **returns** a new instance of `UrlAssembler` with all the parameters from the `params` replaced
 
 ###### `.query(key, value)`
 - `key`: the name of the parameter to configure
 - `value`: the value of the parameter to configure
-- **returns** a new instance of `UrlAssembler` with the key=value pair added as query parameter with the `qs` module.
+- **returns** a new instance of `UrlAssembler` with the `key=value` pair added as
+query parameter with the [`qs`](https://www.npmjs.com/package/qs) module.
 
 ###### `.query(params)`
-shortcut for the previous method with a hash of key/value.
+- shortcut for the previous method with a hash of key/value.
 
-###### `.toString()`
+###### `.toString()`, `.valueOf()`
 - **returns** a *string* of the current state of the `UrlAssembler` instance. Path parameters not yet replaced will appear as `:param_name`.
-
 
 Test
 ----
