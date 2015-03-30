@@ -17,7 +17,7 @@ function UrlAssembler (baseUrlOrUrlAssembler) {
       for (var i in key) {
         if (nullOrUndef(key[i])) delete key[i];
       }
-      query = extend(query, key);
+      query = extend(true, query, key);
     }
     else if (!nullOrUndef(value)) {
       query[key] = value;
