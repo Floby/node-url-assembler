@@ -15,6 +15,7 @@ function UrlAssembler (baseUrlOrUrlAssembler) {
 
   var query = {};
   this._prefix = '';
+  this.pathname = '';
 
   this._query = function addQueryParam (key, value) {
     if(!value && typeof key === 'object') {
@@ -34,7 +35,6 @@ function UrlAssembler (baseUrlOrUrlAssembler) {
     return extend(true, {}, query);
   };
 
-  this.pathname = '';
   if (baseUrl) {
     extend(this, url.parse(baseUrl));
     this._prefix = this.pathname;
