@@ -32,7 +32,7 @@ function UrlAssembler (baseUrlOrUrlAssembler) {
   }
 
   this.getParsedQuery = function () {
-    return extend(true, {}, query);
+    return clone(query);
   };
 
   if (baseUrl) {
@@ -130,4 +130,8 @@ function selectUrlFields (assembler) {
     value[field] = assembler[field]
     return value;
   }, {})
+}
+
+function clone (obj) {
+  return extend(true, {}, obj);
 }
