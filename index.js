@@ -5,7 +5,9 @@ var qs = require('qs');
 module.exports = UrlAssembler;
 
 function UrlAssembler (baseUrlOrUrlAssembler) {
-  if(!(this instanceof UrlAssembler)) return new UrlAssembler(baseUrlOrUrlAssembler);
+  if(!(this instanceof UrlAssembler)) {
+    return new UrlAssembler(baseUrlOrUrlAssembler);
+  }
 
   this._prefix = '';
   this.pathname = '';
@@ -30,8 +32,6 @@ function UrlAssembler (baseUrlOrUrlAssembler) {
   } else if (baseUrlOrUrlAssembler) {
     initWithBaseUrl(this, baseUrlOrUrlAssembler);
   }
-
-  this.href = this.toString();
 }
 
 function initWithBaseUrl (self, baseUrl) {
