@@ -15,13 +15,19 @@ describe('an instance with no baseUrl', function () {
       it('returns the template', function () {
         expect(myUrl.toString()).to.equal('/hello');
       });
-    })
+    });
 
     describe('.valueOf()', function () {
       it('returns the template', function () {
         expect(myUrl.valueOf()).to.equal('/hello');
       })
-    })
+    });
+
+    describe('.toJSON()', function () {
+      it('returns the assembled string', function () {
+        expect(myUrl.toJSON()).to.equal(myUrl.toString());
+      });
+    });
 
     describe('.prefix(prefix)', function () {
       it('adds a prefix to the result of toString()', function () {
@@ -155,5 +161,6 @@ describe('an instance with no baseUrl', function () {
         expect(actual).to.equal('/groups/A/users/9');
       });
     });
+
   });
 });

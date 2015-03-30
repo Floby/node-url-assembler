@@ -71,10 +71,8 @@ methods.segment = function (segment) {
 methods.toString = function toString () {
   return url.format(this);
 };
-
-methods.valueOf = function () {
-  return this.toString();
-}
+methods.valueOf = methods.toString;
+methods.toJSON = methods.toString;
 
 methods.query = function (param, value) {
   var chainable = this._chain();
