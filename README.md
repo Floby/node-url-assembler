@@ -62,7 +62,7 @@ UrlAssembler('https://api.site.com/')
 
 #### making requests
 
-If `url-assembler` finds the `[request](npmjs.com/package/request)` module. Then a `.request` property
+If `url-assembler` finds the [`request`](npmjs.com/package/request) module. Then a `.request` property
 is available on every instance which can be used to make requests.
 
 ```javascript
