@@ -60,6 +60,20 @@ UrlAssembler('https://api.site.com/')
   .toString() // => 'https://api.site.com/v2/users/floby/projects/node-url-assembler/summary'
 ```
 
+#### making requests
+
+If `url-assembler` finds the `[request](npmjs.com/package/request)` module. Then a `.request` property
+is available on every instance which can be used to make requests.
+
+```javascript
+var google = UrlAssembler('https://google.com').query('q', 'url assembler');
+
+google.request.get() // => makes a GET request to google
+
+// you can still pass any other option to request
+google.request.get({json: true})
+```
+
 Design
 ------
 

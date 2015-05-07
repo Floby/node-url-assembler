@@ -2,6 +2,12 @@ var extend = require('extend');
 var url = require('url');
 var qs = require('qs');
 
+try {
+  var request = require('request');
+} catch(e) {
+  var request = null;
+}
+
 module.exports = UrlAssembler;
 
 function UrlAssembler (baseUrlOrUrlAssembler) {
@@ -107,6 +113,14 @@ methods.param = function param (key, value, strict) {
   }
   return chainable;
 };
+
+methods.__defineGetter__('request', function () {
+  if (request) {
+    return request.defaults({uri: this.toString() });
+  } else {
+    throw Error('the "request" module was not found. You must have it installed to use this property');
+  }
+});
 
 function nullOrUndef (value) {
   return value === null || typeof value === 'undefined';
