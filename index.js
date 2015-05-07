@@ -33,6 +33,8 @@ function UrlAssembler (baseUrlOrUrlAssembler) {
     this.search = qs.stringify(query);
   }
 
+  Object.defineProperty(this, '_requestModule', { value: request, writable: true });
+
   if (baseUrlOrUrlAssembler instanceof UrlAssembler) {
     initWithInstance(this, baseUrlOrUrlAssembler);
   } else if (baseUrlOrUrlAssembler) {
@@ -53,6 +55,7 @@ function initWithInstance (self, instance) {
   extend(self, selectUrlFields(instance));
   self._prefix = instance._prefix;
   self._query(instance.getParsedQuery());
+  self._requestModule = instance._requestModule;
 }
 
 var methods = UrlAssembler.prototype;
@@ -115,11 +118,16 @@ methods.param = function param (key, value, strict) {
 };
 
 methods.__defineGetter__('request', function () {
+  var request = this._requestModule;
   if (request) {
-    return request.defaults({uri: this.toString() });
+    return request.defaults({ uri: this.toString() });
   } else {
     throw Error('the "request" module was not found. You must have it installed to use this property');
   }
+});
+
+methods.__defineSetter__('request', function (newRequest) {
+  return this._requestModule = newRequest;
 });
 
 function nullOrUndef (value) {

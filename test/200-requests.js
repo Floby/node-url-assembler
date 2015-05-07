@@ -25,7 +25,25 @@ describe('if the request module is found', function () {
         expect(myUrl.request).to.equal(defaulted);
         assert(requestMock.defaults.calledWith({ uri: 'http://some.thing/hello' }));
       });
+
+      it('can be set to an already defaulted version of request', function () {
+        var myRequest = {defaults: sinon.stub().returns(defaulted)};
+        myUrl.request = myRequest;
+        expect(myUrl.request).to.equal(defaulted);
+        assert(myRequest.defaults.calledWith({ uri: 'http://some.thing/hello' }), 'defaults are not reused');
+      });
+
+      describe('on an child instance', function () {
+        it('uses the same defaults as its parent', function () {
+        var myRequest = {defaults: sinon.stub().returns(defaulted)};
+        //var myRequest = {coucu: 8};
+        myUrl.request = myRequest;
+        expect(myUrl.segment('/something').request).to.equal(defaulted);
+        assert(myRequest.defaults.calledWith({ uri: 'http://some.thing/hello/something' }), 'defaults are not reused');
+        });
+      });
     });
+
   });
 });
 
