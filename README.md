@@ -40,7 +40,7 @@ UrlAssembler('http://my.domain.com:9000')
     group: 'admin',
     user: 'floby'
   })
-  .toString() // => "http://my.domain.9000/groups/admins/users/floby"
+  .toString() // => "http://my.domain.9000/groups/admin/users/floby"
 ```
 
 #### Incremental assembling
