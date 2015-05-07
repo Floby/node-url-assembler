@@ -66,6 +66,23 @@ Design
 Every method (except `toString()`) returns a new instance of `UrlAssembler`. You can
 consider that `UrlAssembler` instances are immutable.
 
+Because of this, you can use a single instance as a preconfigured url to reuse throughout your codebase.
+
+```javascript
+var api = UrlAssembler('http://api.site.com');
+
+var userResource = api.segment('/users/:user');
+
+var userV1 = userResource.prefix('/v1');
+var userV2 = userResource.prefix('/v2');
+
+var userFeedResource = userV2.segment('/feed');
+
+var authenticated = api.query('auth_token', '123457890');
+
+var adminResource = authenticated.segment('/admin');
+```
+
 In addition, an instance of `UrlAssembler` is a valid object to pass
 to `url.format()` or any function accepting this kind of object as
 parameter.
