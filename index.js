@@ -117,17 +117,18 @@ methods.param = function param (key, value, strict) {
   return chainable;
 };
 
-methods.__defineGetter__('request', function () {
-  var request = this._requestModule;
-  if (request) {
-    return request.defaults({ uri: this.toString() });
-  } else {
-    throw Error('the "request" module was not found. You must have it installed to use this property');
+Object.defineProperty(methods, 'request', {
+  get: function () {
+    var request = this._requestModule;
+    if (request) {
+      return request.defaults({ uri: this.toString() });
+    } else {
+      throw Error('the "request" module was not found. You must have it installed to use this property');
+    }
+  },
+  set: function (newRequest) {
+    return this._requestModule = newRequest;
   }
-});
-
-methods.__defineSetter__('request', function (newRequest) {
-  return this._requestModule = newRequest;
 });
 
 function nullOrUndef (value) {
