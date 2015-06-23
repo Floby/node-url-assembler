@@ -1,6 +1,7 @@
 var extend = require('extend');
 var url = require('url');
 var qs = require('qs');
+var selectUrlFields = require('./lib/fields-to-keep');
 
 try {
   var request = require('request');
@@ -15,23 +16,11 @@ function UrlAssembler (baseUrlOrUrlAssembler) {
     return new UrlAssembler(baseUrlOrUrlAssembler);
   }
 
+  var query = {};
+  this._query = addQueryParamTo(query);
   this._prefix = '';
   this.pathname = '';
-  var query = {};
   this.getParsedQuery = clone.bind(null, query);
-
-  this._query = function addQueryParam (key, value) {
-    if(!value && typeof key === 'object') {
-      for (var i in key) {
-        if (nullOrUndef(key[i])) delete key[i];
-      }
-      query = extend(true, query, key);
-    }
-    else if (!nullOrUndef(value)) {
-      query[key] = value;
-    }
-    this.search = qs.stringify(query);
-  }
 
   Object.defineProperty(this, '_requestModule', { value: request, writable: true });
 
@@ -97,17 +86,10 @@ methods.prefix = function prefix (prefix) {
 };
 
 methods.param = function param (key, value, strict) {
-  var chainable = this._chain();
-
   if (typeof key === 'object') {
-    var hash = key;
-    strict = (value === true);
-    for (key in hash) {
-      chainable = chainable.param(key, hash[key], strict);
-    }
-    return chainable;
+    return _multiParam(this, key, (value === true));
   }
-
+  var chainable = this._chain();
   var previous = this.pathname;
   var symbol = ':' + key;
   chainable.pathname = this.pathname.replace(symbol, value);
@@ -117,7 +99,38 @@ methods.param = function param (key, value, strict) {
   return chainable;
 };
 
-Object.defineProperty(methods, 'request', {
+function _multiParam (chainable, hash, strict) {
+  for (key in hash) {
+    chainable = chainable.param(key, hash[key], strict);
+  }
+  return chainable;
+}
+
+function addQueryParamTo (query) {
+  return function addQueryParam(key, value) {
+    if(!value && typeof key === 'object') {
+      addManyParameters(key);
+    } else {
+      addOneParameter(key, value)
+    }
+    this.search = qs.stringify(query);
+  }
+
+  function addManyParameters (hash) {
+    for (var key in hash) {
+      if (nullOrUndef(hash[key])) delete hash[key];
+    }
+    extend(true, query, hash);
+  }
+
+  function addOneParameter (key, value) {
+    if (!nullOrUndef(value)) {
+      query[key] = value;
+    }
+  }
+}
+
+Object.defineProperty(UrlAssembler.prototype, 'request', {
   get: function () {
     var request = this._requestModule;
     if (request) {
@@ -133,24 +146,6 @@ Object.defineProperty(methods, 'request', {
 
 function nullOrUndef (value) {
   return value === null || typeof value === 'undefined';
-}
-
-function selectUrlFields (assembler) {
-  return ['protocol',
-          'slashes',
-          'auth',
-          'host',
-          'port',
-          'hostname',
-          'hash',
-          'search',
-          //'query',
-          'pathname',
-          'path',
-          'href'].reduce(function(value, field) {
-    value[field] = assembler[field]
-    return value;
-  }, {})
 }
 
 function clone (obj) {
