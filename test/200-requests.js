@@ -1,7 +1,7 @@
 var sinon = require('sinon');
 var proxyquire = require('proxyquire').noCallThru();
-var expect = require('chai').expect
-var assert = require('chai').assert
+var expect = require('chai').expect;
+var assert = require('chai').assert;
 
 describe('if the request module is found', function () {
   var requestMock, UrlAssembler;
@@ -13,12 +13,12 @@ describe('if the request module is found', function () {
     };
     UrlAssembler = proxyquire('../', { request: requestMock });
     myUrl = UrlAssembler('http://some.thing/hello');
-  })
+  });
 
   describe('an instance', function () {
     it('has a "request" property', function () {
       expect(myUrl).to.have.property('request');
-    })
+    });
 
     describe('the .request property', function () {
       it('returns a request object which defaults to the current URL', function () {
@@ -54,7 +54,7 @@ describe('if the request module is NOT found', function () {
     var myUrl = UrlAssembler('http://some.thing/hello');
     it('throws when trying to access the .request property', function () {
       expect(function () {
-        myUrl.request
+        return myUrl.request;
       }).to.throw(Error);
     })
   });

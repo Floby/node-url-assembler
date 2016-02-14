@@ -1,5 +1,5 @@
-var expect = require('chai').expect
-var UrlAssembler = require('../')
+var expect = require('chai').expect;
+var UrlAssembler = require('../');
 
 describe('an instance with no baseUrl', function () {
   var myUrl;
@@ -58,11 +58,11 @@ describe('an instance with no baseUrl', function () {
     describe('.query(key, value)', function () {
       it('add the parameter as a query parameter', function () {
         expect(myUrl.query('param', 12345).toString()).to.equal('/hello?param=12345');
-      })
+      });
 
       it('does not add the query parameter if it has a null value', function () {
         expect(myUrl.query('param', null).toString()).to.equal('/hello');
-      })
+      });
 
       it('keeps the query parameter if it has a falsy yet correct value', function () {
         expect(myUrl.query('param', 0).toString()).to.equal('/hello?param=0');
@@ -74,16 +74,16 @@ describe('an instance with no baseUrl', function () {
         myUrl = myUrl.query({
           'hello': 'goodbye',
           'one': 1
-        })
+        });
         expect(myUrl.toString()).to.equal('/hello?hello=goodbye&one=1');
-      })
+      });
 
       it('does not add the query parameters which are null', function () {
         myUrl = myUrl.query({
           'hello': 'goodbye',
           'one': null,
           'goodbye': 'hello'
-        })
+        });
         expect(myUrl.toString()).to.equal('/hello?hello=goodbye&goodbye=hello');
       });
 
@@ -93,19 +93,19 @@ describe('an instance with no baseUrl', function () {
           'two': '',
           'three': 0,
           'goodbye': 'hello'
-        })
+        });
         expect(myUrl.toString()).to.equal('/hello?hello=goodbye&two=&three=0&goodbye=hello');
       });
 
       describe('when some query param have already been set', function () {
         beforeEach(function () {
           myUrl = myUrl.query('yes', 'no');
-        })
+        });
         it('keeps the previously set query params', function () {
           myUrl = myUrl.query({
             'hello': 'goodbye',
             'one': 1
-          })
+          });
           expect(myUrl.toString()).to.equal('/hello?yes=no&hello=goodbye&one=1')
         });
       })
@@ -127,7 +127,7 @@ describe('an instance with no baseUrl', function () {
         myUrl = myUrl
           .param('myparam', 'hello')
           .segment('/another/:parameter');
-      })
+      });
       it('adds the given parametrized segment at the end of the path', function () {
         expect(myUrl.param('parameter', 8000).toString()).to.equal('/path/hello/another/8000');
       });
@@ -139,7 +139,7 @@ describe('an instance with no baseUrl', function () {
       myUrl = myUrl
       .segment('/groups/:group')
       .segment('/users/:user');
-    })
+    });
     describe('.param({...})', function () {
       it('replace the correct value for each parameter', function () {
         var actual = myUrl.param({
@@ -157,7 +157,7 @@ describe('an instance with no baseUrl', function () {
         }).toString();
         expect(actual).to.equal('/groups/A/users/9?something=else');
       });
-    })
+    });
 
     describe('.param({...}, true)', function () {
       it('does not put unused parameters in query params', function () {

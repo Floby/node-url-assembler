@@ -1,5 +1,5 @@
-var expect = require('chai').expect
-var UrlAssembler = require('../')
+var expect = require('chai').expect;
+var UrlAssembler = require('../');
 
 describe('an instance with a baseUrl', function () {
   var myUrl;
@@ -17,7 +17,7 @@ describe('an instance with a baseUrl', function () {
     });
 
     describe('.prefix(prefix)', function () {
-      it('adds a prefix in addition to the exsting one', function () {
+      it('adds a prefix in addition to the existing one', function () {
         expect(myUrl.prefix('/v2').toString()).to.equal('http://hello.com:8989/api/v2/hello/world');
       })
     })
@@ -26,7 +26,7 @@ describe('an instance with a baseUrl', function () {
   describe('when the baseUrl stops at the port number', function () {
     beforeEach(function () {
       myUrl = UrlAssembler('http://domain.com:90');
-    })
+    });
 
     it('does not double slash the result', function () {
       expect(myUrl.segment('/hello').toString()).to.equal('http://domain.com:90/hello');
@@ -43,6 +43,6 @@ describe('an instance with a baseUrl', function () {
       var expected = myUrl.toString();
       expect(url.format(myUrl)).to.equal(expected);
     });
-  })
+  });
 
 });

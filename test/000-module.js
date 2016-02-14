@@ -1,4 +1,4 @@
-var expect = require('chai').expect
+var expect = require('chai').expect;
 
 describe('the module', function () {
   it('is requirable', function () {
@@ -13,4 +13,4 @@ describe('the module', function () {
     var myUrl = UrlAssembler('/hello');
     expect(myUrl).to.be.an.instanceof(UrlAssembler);
   });
-})
+});
