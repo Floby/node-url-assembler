@@ -1,16 +1,15 @@
 {
-  "name": "url-assembler",
-  "version": "1.2.4",
-  "description": "Assemble urls from route-like templates (/path/:param)",
+  "name": "safe-url-assembler",
+  "version": "1.3.0",
+  "description": "Assemble urls from route-like templates (/path/:param), with URI components encoding",
   "main": "index.js",
   "browser": "browser.js",
   "scripts": {
-    "test": "istanbul cover --print detail _mocha -- -R spec test",
-    "coveralls": "cat coverage/lcov.info | coveralls"
+    "test": "istanbul cover --print detail _mocha -- -R spec test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Floby/node-url-assembler.git"
+    "url": "https://github.com/mickaeltr/safe-url-assembler.git"
   },
   "keywords": [
     "url",
@@ -27,21 +26,23 @@
     "query"
   ],
   "author": "Florent Jaby <florent.jaby@gmail.com>",
+  "contributors": [
+    {
+      "name": "Mickaël Tricot",
+      "url": "http://gimmick.fr"
+    }
+  ],
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Floby/node-url-assembler/issues"
-  },
-  "homepage": "https://github.com/Floby/node-url-assembler",
+  "homepage": "https://github.com/mickaeltr/safe-url-assembler",
   "devDependencies": {
     "chai": "^3.5.0",
-    "coveralls": "^2.11.6",
-    "istanbul": "^0.4.2",
-    "mocha": "^2.4.5",
-    "proxyquire": "^1.7.4",
-    "sinon": "^1.17.3"
+    "istanbul": "^0.4.4",
+    "mocha": "^2.5.3",
+    "proxyquire": "^1.7.9",
+    "sinon": "^1.17.4"
   },
   "dependencies": {
     "extend": "^3.0.0",
-    "qs": "^6.1.0"
+    "qs": "^6.2.0"
   }
 }
