@@ -3,6 +3,8 @@
 safe-url-assembler
 ==================
 
+Forked from [Floby/node-url-assembler](https://github.com/Floby/node-url-assembler), adding URI components encoding
+
 > Assemble urls from route-like templates (/path/:param) 
 
 Chainable utility to assemble URLs from templates
