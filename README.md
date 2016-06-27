@@ -12,7 +12,7 @@ Chainable utility to assemble URLs from templates
 Installation
 ------------
 
-    npm install --save url-assembler
+    npm install --save safe-url-assembler
 
 Usage
 -----
