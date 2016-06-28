@@ -1,6 +1,6 @@
 {
   "name": "safe-url-assembler",
-  "version": "1.3.1",
+  "version": "1.3.2222222222222222222222",
   "description": "Assemble urls from route-like templates (/path/:param), with URI components encoding",
   "main": "index.js",
   "browser": "browser.js",
