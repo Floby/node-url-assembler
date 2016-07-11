@@ -51,13 +51,13 @@ describe('an instance with a baseUrl', function () {
       myUrl = UrlAssembler('http://www.canal.com:8989')
         .prefix('/plûs')
         .template('/:zone/média/:média')
-        .param({média: 'Bouquet père', zone: 'CARAÏBES'})
+        .param({'média': 'Bouquet père', 'zone': 'CARAÏBES'})
         .query({now: '2014-05-27T03:59:59+00:00', föö: "b a r"});
       expect(myUrl.toString()).to.equal(
         'http://www.canal.com:8989'
         + '/pl%C3%BBs'
         + '/CARA%C3%8FBES/m%C3%A9dia/Bouquet%20p%C3%A8re'
-        + '?now=2014-05-27T03%3A59%3A59%2B00%3A00&f%C3%B6%C3%B6=b+a+r'
+        + '?now=2014-05-27T03%3A59%3A59%2B00%3A00&f%C3%B6%C3%B6=b%20a%20r'
       );
     });
 
@@ -65,13 +65,13 @@ describe('an instance with a baseUrl', function () {
       myUrl = UrlAssembler('http://www.canal.com:8989')
           .prefix('/plûs')
           .segment('/:zone/média/:média')
-          .param({média: 'Bouquet père', zone: 'CARAÏBES'})
+          .param({'média': 'Bouquet père', 'zone': 'CARAÏBES'})
           .query({now: '2014-05-27T03:59:59+00:00', föö: "b a r"});
       expect(myUrl.toString()).to.equal(
           'http://www.canal.com:8989'
           + '/pl%C3%BBs'
           + '/CARA%C3%8FBES/m%C3%A9dia/Bouquet%20p%C3%A8re'
-          + '?now=2014-05-27T03%3A59%3A59%2B00%3A00&f%C3%B6%C3%B6=b+a+r'
+          + '?now=2014-05-27T03%3A59%3A59%2B00%3A00&f%C3%B6%C3%B6=b%20a%20r'
       );
     });
 
