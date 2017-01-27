@@ -19,3 +19,6 @@ logs
 results
 
 npm-debug.log
+
+.idea
+*.iml
