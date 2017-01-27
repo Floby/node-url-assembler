@@ -29,7 +29,14 @@
   "contributors": [
     {
       "name": "Mickaël Tricot",
-      "url": "http://gimmick.fr"
+      "url": "http://gimmick.fr/"
+    },
+    {
+      "name": "azu",
+      "url": "http://efcl.info/"
+    },
+    {
+      "name": "Bartosz Kaszubowski"
     }
   ],
   "license": "MIT",
