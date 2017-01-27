@@ -75,6 +75,17 @@ describe('an instance with a baseUrl', function () {
       );
     });
 
+    it('should encode them in the final URL (with param)', function() {
+      myUrl = UrlAssembler('http://example.com')
+          .segment('/search/:p')
+          .param({
+            'p': "-_.!~*'() /;,?:@&=+$_abc_日本語"
+          });
+      expect(myUrl.toString()).to.equal(
+          'http://example.com'
+          + "/search/-_.!~*'()%20%2F%3B%2C%3F%3A%40%26%3D%2B%24_abc_%E6%97%A5%E6%9C%AC%E8%AA%9E"
+      );
+    });
   })
 
 });
