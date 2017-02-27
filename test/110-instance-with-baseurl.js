@@ -7,6 +7,14 @@ describe('an instance with a baseUrl', function () {
     myUrl = UrlAssembler('http://hello.com:8989/api');
   });
 
+  describe('With no template', function () {
+    describe('.query(key, value)', function () {
+      it('add the query parameter directly after a /', function () {
+        expect(myUrl.query('hello', 'world').toString()).to.equal('http://hello.com:8989/api?hello=world');
+      });
+    });
+  });
+
   describe('given a template with no parameters', function () {
     beforeEach(function () {
       myUrl = myUrl.template('/hello/world');
