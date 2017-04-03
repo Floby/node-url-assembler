@@ -58,8 +58,8 @@ describe('an instance with a baseUrl', function () {
       myUrl = UrlAssembler('http://domain.com/coucou?hello=world');
     });
 
-    it('should keep the query param', () => {
-      expect(myUrl.query('a', 'b').toString()).to.equal('http://domain.com/coucou?hello=world&a=b')
+    it('should keep the query param', function () {
+      expect(myUrl.query('a', 'b').toString()).to.equal('http://domain.com/coucou?hello=world&a=b');
     });
 
   });
