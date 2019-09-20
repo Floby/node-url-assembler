@@ -73,7 +73,7 @@ describe('an instance with a baseUrl', function () {
     it("should keep accept qs config options", function() {
       expect(
         myUrl
-          .configQs({
+          .qsConfig({
             arrayFormat: "repeat"
           })
           .query("a", ["b", "c"])
@@ -81,7 +81,7 @@ describe('an instance with a baseUrl', function () {
       ).to.equal("http://domain.com/coucou?hello=world&a=b&a=c");
     });
   });
-  
+
   describe('when used with special characters', function() {
 
     it('should encode them in the final URL (with template)', function() {
