@@ -5,7 +5,7 @@
   "main": "index.js",
   "browser": "browser.js",
   "scripts": {
-    "test": "istanbul cover --print detail _mocha -- -R spec test",
+    "test": "nyc -r text -r html -r lcov mocha -R spec test",
     "coveralls": "cat coverage/lcov.info | coveralls"
   },
   "repository": {
@@ -35,8 +35,8 @@
   "devDependencies": {
     "chai": "^1.10.0",
     "coveralls": "^3.0.2",
-    "istanbul": "^0.4.5",
     "mocha": "^5.2.0",
+    "nyc": "^14.1.1",
     "proxyquire": "^1.4.0",
     "sinon": "^1.14.1"
   },
