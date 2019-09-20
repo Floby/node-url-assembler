@@ -65,6 +65,23 @@ describe('an instance with a baseUrl', function () {
 
   });
 
+  describe("when baseUrl has a repeated query param with config", function() {
+    beforeEach(function() {
+      myUrl = UrlAssembler("http://domain.com/coucou?hello=world");
+    });
+
+    it("should keep accept qs config options", function() {
+      expect(
+        myUrl
+          .configQs({
+            arrayFormat: "repeat"
+          })
+          .query("a", ["b", "c"])
+          .toString()
+      ).to.equal("http://domain.com/coucou?hello=world&a=b&a=c");
+    });
+  });
+  
   describe('when used with special characters', function() {
 
     it('should encode them in the final URL (with template)', function() {
