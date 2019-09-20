@@ -41,7 +41,7 @@
     "sinon": "^1.14.1"
   },
   "dependencies": {
-    "extend": "^2.0.0",
+    "extend": "^2.0.2",
     "qs": "^6.5.1"
   }
 }
